@@ -18,9 +18,9 @@ use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\IRequest;
 use OCP\Security\Bruteforce\IThrottler;
-use OCP\Settings\ISettings;
+use OCP\Settings\IDelegatedSettings;
 
-class IPWhitelist implements ISettings {
+class IPWhitelist implements IDelegatedSettings {
 	public function __construct(
 		protected IRequest $request,
 		protected IInitialState $initialState,
@@ -40,6 +40,14 @@ class IPWhitelist implements ISettings {
 
 	public function getSection(): string {
 		return 'security';
+	}
+
+	public function getName(): ?string {
+		return null;
+	}
+
+	public function getAuthorizedAppConfig(): array {
+		return [];
 	}
 
 	public function getPriority(): int {
